@@ -1,6 +1,7 @@
 package id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -54,11 +56,11 @@ public class SecondAdapter extends RecyclerView.Adapter<SecondAdapter.ViewHolder
 
             @Override
             public void onClick(View view) {
-//                Toast.makeText(context, "Klik " + homeListItem.getJudul(), Toast.LENGTH_LONG).show();
-//                Intent singleBlogIntent = new Intent(context, HomeActivity.class);
-//                singleBlogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                singleBlogIntent.putExtra("blog_id", position);
-//                context.startActivity(singleBlogIntent);
+                Toast.makeText(context, "Klik " + secondListItem.getJudul(), Toast.LENGTH_LONG).show();
+                Intent singleBlogIntent = new Intent(context, SecondActivity.class);
+                singleBlogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                singleBlogIntent.putExtra("blog_id", position);
+                context.startActivity(singleBlogIntent);
             }
         });
     }
@@ -83,5 +85,6 @@ public class SecondAdapter extends RecyclerView.Adapter<SecondAdapter.ViewHolder
             linearLayout = (LinearLayout) itemView.findViewById(R.id.LinearLayout2);
 
         }
+
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo.SecondActivity">
+    tools:context="id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo.HomeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -22,6 +22,15 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+            <ImageView
+                android:id="@+id/imageViewBack2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                tools:src="@drawable/ic_movie_black_24dp" />
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -32,7 +41,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_second" />
+    <include layout="@layout/content_home" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
