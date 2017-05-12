@@ -1,6 +1,7 @@
 package id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,10 +57,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, "Klik " + homeListItem.getJudul(), Toast.LENGTH_LONG).show();
-//                Intent singleBlogIntent = new Intent(context, DetailActivity.class);
-//                singleBlogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                singleBlogIntent.putExtra("blog_id", position);
-//                context.startActivity(singleBlogIntent);
+                Intent singleBlogIntent = new Intent(context, HomeActivity.class);
+                singleBlogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                singleBlogIntent.putExtra("blog_id", position);
+                context.startActivity(singleBlogIntent);
             }
         });
     }

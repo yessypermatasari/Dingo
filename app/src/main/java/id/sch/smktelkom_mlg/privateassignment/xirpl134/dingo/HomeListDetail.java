@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Yessy Permatasari on 5/12/2017.
  */
 
-public class HomeListItem implements Serializable {
+public class HomeListDetail implements Serializable {
     private String poster;
     private String overview;
     private String terbit;
@@ -14,7 +14,7 @@ public class HomeListItem implements Serializable {
     private String backdrop;
 
 
-    public HomeListItem(String backdrop, String judul) {
+    public HomeListDetail(String judul, String terbit, String overview, String backdrop) {
         this.poster = poster;
         this.overview = overview;
         this.terbit = terbit;
