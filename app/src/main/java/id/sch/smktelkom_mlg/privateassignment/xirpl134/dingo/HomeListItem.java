@@ -14,10 +14,10 @@ public class HomeListItem implements Serializable {
     private String backdrop;
 
 
-    public HomeListItem(String poster, String overview, String terbit, String judul, String backdrop) {
-        this.poster = poster;
-        this.overview = overview;
-        this.terbit = terbit;
+    public HomeListItem(String backdrop, String judul) {
+//        this.poster = poster;
+//        this.overview = overview;
+//        this.terbit = terbit;
         this.judul = judul;
         this.backdrop = backdrop;
     }
