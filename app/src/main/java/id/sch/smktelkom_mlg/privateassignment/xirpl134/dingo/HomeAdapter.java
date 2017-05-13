@@ -7,8 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -40,7 +39,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final HomeListItem homeListItem = homeListItems.get(position);
 
-        holder.textViewJudul.setText(homeListItem.getJudul());
+//        holder.textViewJudul.setText(homeListItem.getJudul());
         //holder.imageViewBack.setImageURI(homeListItem.getImageUrl());
         //glide ini nnt
 
@@ -73,16 +72,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView textViewJudul;
+
         public ImageView imageViewBack;
-        public LinearLayout linearLayout;
+        public RelativeLayout linearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            textViewJudul = (TextView) itemView.findViewById(R.id.textViewJudul);
+
             imageViewBack = (ImageView) itemView.findViewById(R.id.imageViewBack);
-            linearLayout = (LinearLayout) itemView.findViewById(R.id.LinearLayout);
+            linearLayout = (RelativeLayout) itemView.findViewById(R.id.LinearLayout);
 
         }
     }

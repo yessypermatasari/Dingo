@@ -4,7 +4,7 @@ package id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         listItems = new ArrayList<>();
 
@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment {
 
                                 HomeListItem item = new HomeListItem(
 
-                                        "https://image.tmdb.org/t/p/w500" + o.getString("backdrop_path"),
+                                        "https://image.tmdb.org/t/p/w500" + o.getString("poster_path"),
 
                                         o.getString("title")
 
