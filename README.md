@@ -6,10 +6,10 @@ Dingo
 <p> http://www.mediafire.com/file/7x5bbuitd4nppvx/app-release.apk</p> 
 
 ### C. Identitas 
-Nama          : Bayu Krisna <br>
+Nama          : Yessy Permatasari <br>
 Kelas         : XI RPL 1 <br>
-No. Urut      : 08 <br>
-NIS           : 4684/1403.070 <br>
+No. Urut      : 34 <br>
+NIS           : 4854/1573.070 <br>
 Nama Sekolah  : SMK Telkom Malang <br>
 
 #### D. Alamat API
