@@ -40,7 +40,7 @@ public class SecondActivity extends AppCompatActivity {
     public String Backdrop;
     public Button btnRate;
     public Spinner spinnerRating;
-    public byte[] gambar = new byte[999999999];
+    public byte[] gambar = new byte[2048];
     Place place;
     boolean isPressed = true;
     //    FloatingActionButton fab;

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,7 +54,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(PlaceAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(PlaceAdapter.ViewHolder holder, final int position) {
         final Place place = pItem.get(position);
 
         holder.textViewJudulRate1.setText(place.judul);
@@ -66,7 +67,24 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
         Bitmap bitmap = getImage(place.backdrop);
         holder.imageViewBackdropRate1.setImageBitmap(bitmap);
+        holder.buttonDelete.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+
+            public void onClick(View view) {
+
+                final Place place1 = pItem.get(position);
+
+                pItem.remove(position);
+
+                place1.delete();
+
+                PlaceAdapter.this.notifyDataSetChanged();
+
+
+            }
+
+        });
 
 
 //        holder.buttonDelete.setOnClickListener(new View.OnClickListener(){
@@ -106,7 +124,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         public TextView textViewOverviewRate1;
         public TextView textViewRate1;
         public ImageView imageViewBackdropRate1;
-
+        public Button buttonDelete;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -116,6 +134,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
             textViewOverviewRate1 = (TextView) itemView.findViewById(R.id.textViewOverviewRate1);
             textViewRate1 = (TextView) itemView.findViewById(R.id.textViewRate1);
             imageViewBackdropRate1 = (ImageView) itemView.findViewById(R.id.imageViewBackDropRate1);
+            buttonDelete = (Button) itemView.findViewById(R.id.buttonDelete);
         }
     }
 }
