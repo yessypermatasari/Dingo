@@ -56,4 +56,5 @@ public class Rate1_Fragment extends Fragment {
         return view;
     }
 
+
 }

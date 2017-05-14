@@ -1,6 +1,8 @@
 package id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +25,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo.Sugar.Place;
 
@@ -37,13 +41,39 @@ public class HomeActivity extends AppCompatActivity {
     public Spinner spinnerRating;
     //    public PlaceItem placeItem;
     public String Backdrop;
+    public byte[] gambar = new byte[2048];
     //    public boolean isNew;
     Place place;
     boolean isPressed = true;
     //    FloatingActionButton fab;
     boolean isNew;
     ArrayList<Place> pItem;
+    JSONObject o = null;
     private Integer mPostkey = null;
+
+    public static byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
+//    private void fillData() {
+//        spinnerRating.setSelected(place.rate);
+//    }
+//    private void doRate() {
+//        String rate = spinnerRating.getSelectedItem().toString();
+//
+//        if (rate.isEmpty())
+//        {
+//        //    Snackbar.make(findViewById(R.id.spinnerRating), place.ra + " Terhapus", Snackbar.LENGTH_LONG)
+//        }
+//        else
+//        {
+//            if (isNew){
+//                place = new Place(rate);
+//                place.save();
+//            }
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,11 +115,11 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (isPressed) {
                     doSave();
-                    Snackbar.make(view, "Anda berhasil memberi rating, lihat di favorit", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Rating Berhasil Ditambahkan", Snackbar.LENGTH_LONG)
 
                             .setAction("Action", null).show();
                 } else {
-                    Snackbar.make(view, "Artikel favorit anda", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Rating Gagal", Snackbar.LENGTH_LONG)
 
                             .setAction("Action", null).show();
                 }
@@ -113,31 +143,12 @@ public class HomeActivity extends AppCompatActivity {
         String overview = textViewOverview.getText().toString();
         String terbit = textViewTerbit.getText().toString();
         String judul = textViewJudul.getText().toString();
-        String backdrop = Backdrop;
+        byte[] backdrop = gambar;
         String rate = spinnerRating.getSelectedItem().toString();
 
         place = new Place(overview, terbit, judul, backdrop, rate);
         place.save();
     }
-//    private void fillData() {
-//        spinnerRating.setSelected(place.rate);
-//    }
-//    private void doRate() {
-//        String rate = spinnerRating.getSelectedItem().toString();
-//
-//        if (rate.isEmpty())
-//        {
-//        //    Snackbar.make(findViewById(R.id.spinnerRating), place.ra + " Terhapus", Snackbar.LENGTH_LONG)
-//        }
-//        else
-//        {
-//            if (isNew){
-//                place = new Place(rate);
-//                place.save();
-//            }
-//        }
-//    }
-
 
     private void loadRecyclerViewData() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -154,14 +165,14 @@ public class HomeActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(s);
                             JSONArray array = jsonObject.getJSONArray("results");
-                            JSONObject o = array.getJSONObject(mPostkey);
+                            o = array.getJSONObject(mPostkey);
 
 
                             setTitle(" ");
 
 
                             textViewJudul.setText(o.getString("title"));
-                            textViewTerbit.setText(o.getString("release_date"));
+                            textViewTerbit.setText("Release on :  " + o.getString("release_date"));
                             textViewOverview.setText(o.getString("overview"));
 
 //                            url = o.getJSONObject("link").getString("url");
@@ -171,6 +182,28 @@ public class HomeActivity extends AppCompatActivity {
                                     .with(HomeActivity.this)
                                     .load("https://image.tmdb.org/t/p/w500" + o.getString("poster_path"))
                                     .into(imageViewDetail);
+
+                            new AsyncTask<Void, Void, Void>() {
+
+                                @Override
+                                protected Void doInBackground(Void... params) {
+                                    try {
+                                        Bitmap bitmap = Glide.
+                                                with(getApplicationContext()).
+                                                load("https://image.tmdb.org/t/p/w500" + o.getString("poster_path")).
+                                                asBitmap().
+                                                into(500, 500).get();
+                                        gambar = getBytes(bitmap);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    return null;
+                                }
+                            }.execute();
 
                         } catch (JSONException e) {
                             e.printStackTrace();

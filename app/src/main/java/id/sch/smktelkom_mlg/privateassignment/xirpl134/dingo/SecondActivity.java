@@ -1,11 +1,16 @@
 package id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo;
 
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -20,13 +25,35 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo.Sugar.Place;
+
 public class SecondActivity extends AppCompatActivity {
     private static final String URL_DATA = "https://api.themoviedb.org/3/discover/movie?with_genres=18&sort_by=vote_average.desc&vote_count.gte=10&api_key=0652326c89cd19f30e225c34439a580c";
     public TextView textViewJudul;
     public TextView textViewTerbit;
     public TextView textViewOverView;
     public ImageView imageViewDetail;
+    public String Backdrop;
+    public Button btnRate;
+    public Spinner spinnerRating;
+    public byte[] gambar = new byte[999999999];
+    Place place;
+    boolean isPressed = true;
+    //    FloatingActionButton fab;
+    boolean isNew;
+    ArrayList<Place> pItem;
+    JSONObject o = null;
     private Integer mPostkey = null;
+
+    public static byte[] getBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        return stream.toByteArray();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +86,25 @@ public class SecondActivity extends AppCompatActivity {
         textViewOverView = (TextView) findViewById(R.id.textViewOverView);
         imageViewDetail = (ImageView) findViewById(R.id.imageViewBack);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        spinnerRating = (Spinner) findViewById(R.id.spinnerRating);
+        btnRate = (Button) findViewById(R.id.btnRate);
 
+        btnRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isPressed) {
+                    doSave();
+                    Snackbar.make(view, "Rating Berhasil Ditambahkan", Snackbar.LENGTH_LONG)
+
+                            .setAction("Action", null).show();
+                } else {
+                    Snackbar.make(view, "Rating Gagal", Snackbar.LENGTH_LONG)
+
+                            .setAction("Action", null).show();
+                }
+                isPressed = !isPressed;
+            }
+        });
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -67,6 +112,17 @@ public class SecondActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    private void doSave() {
+        String overview = textViewOverView.getText().toString();
+        String terbit = textViewTerbit.getText().toString();
+        String judul = textViewJudul.getText().toString();
+        byte[] backdrop = gambar;
+        String rate = spinnerRating.getSelectedItem().toString();
+
+        place = new Place(overview, terbit, judul, backdrop, rate);
+        place.save();
     }
 
     private void loadRecyclerViewData() {
@@ -84,7 +140,7 @@ public class SecondActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(s);
                             JSONArray array = jsonObject.getJSONArray("results");
-                            JSONObject o = array.getJSONObject(mPostkey);
+                            o = array.getJSONObject(mPostkey);
 
 
                             setTitle(" ");
@@ -101,6 +157,28 @@ public class SecondActivity extends AppCompatActivity {
                                     .with(SecondActivity.this)
                                     .load("https://image.tmdb.org/t/p/w500" + o.getString("backdrop_path"))
                                     .into(imageViewDetail);
+
+                            new AsyncTask<Void, Void, Void>() {
+
+                                @Override
+                                protected Void doInBackground(Void... params) {
+                                    try {
+                                        Bitmap bitmap = Glide.
+                                                with(getApplicationContext()).
+                                                load("https://image.tmdb.org/t/p/w500" + o.getString("backdrop_path")).
+                                                asBitmap().
+                                                into(500, 500).get();
+                                        gambar = getBytes(bitmap);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    return null;
+                                }
+                            }.execute();
 
                         } catch (JSONException e) {
                             e.printStackTrace();

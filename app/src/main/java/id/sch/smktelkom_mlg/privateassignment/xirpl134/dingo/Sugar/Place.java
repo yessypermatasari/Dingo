@@ -13,7 +13,7 @@ public class Place extends SugarRecord implements Serializable {
     String overview;
     String terbit;
     String judul;
-    String backdrop;
+    byte[] backdrop = new byte[2048];
     String rate;
 
     public Place() {
@@ -21,7 +21,7 @@ public class Place extends SugarRecord implements Serializable {
 
     }
 
-    public Place(String overview, String terbit, String judul, String backdrop, String rate) {
+    public Place(String overview, String terbit, String judul, byte[] backdrop, String rate) {
 //        this.poster = poster;
         this.overview = overview;
         this.terbit = terbit;

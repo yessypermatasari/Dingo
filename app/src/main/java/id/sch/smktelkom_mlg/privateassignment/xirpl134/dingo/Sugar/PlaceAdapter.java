@@ -1,14 +1,14 @@
 package id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo.Sugar;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -23,12 +23,22 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
     private final Context context;
     ArrayList<Place> pItem;
     IPlaceAdapter iPlaceAdapter;
+    Bitmap bitmap = null;
 
     public PlaceAdapter(ArrayList<Place> place, Context context) {
         this.pItem = place;
         this.context = context;
 
     }
+
+    public static Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
+//    @Override
+//    public PlaceAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        return null;
+//    }
 
     @Override
 
@@ -42,11 +52,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
     }
 
-//    @Override
-//    public PlaceAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        return null;
-//    }
-
     @Override
     public void onBindViewHolder(PlaceAdapter.ViewHolder holder, int position) {
         final Place place = pItem.get(position);
@@ -59,13 +64,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
 
         holder.textViewRate1.setText(place.rate);
 
-        Glide
+        Bitmap bitmap = getImage(place.backdrop);
+        holder.imageViewBackdropRate1.setImageBitmap(bitmap);
 
-                .with(context)
 
-                .load("https://image.tmdb.org/t/p/w500" + place.backdrop)
-
-                .into(holder.imageViewBackdropRate1);
 
 //        holder.buttonDelete.setOnClickListener(new View.OnClickListener(){
 //
