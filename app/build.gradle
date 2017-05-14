@@ -15,7 +15,7 @@ android {
         release {
             storeFile file("../keyproject/key.jks")
             storePassword "123456"
-            keyAlias "DingoKey"
+            keyAlias "Dingo"
             keyPassword "123456"
         }
     }
