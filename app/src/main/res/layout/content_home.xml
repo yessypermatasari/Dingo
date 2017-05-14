@@ -23,6 +23,24 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/movieitem_detail_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:fillViewport="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="@dimen/fab_margin"-->
+            <!--android:src="@drawable/ic_favorite_border_black_24dp"-->
+            <!--app:layout_anchor="@id/app_bar"-->
+            <!--app:layout_anchorGravity="bottom|end" />-->
+
             <TextView
                 android:id="@+id/textViewJudul"
                 android:layout_width="match_parent"
@@ -47,6 +65,19 @@
                 android:text="OverView"
                 android:textSize="8pt" />
 
+            <Spinner
+                android:id="@+id/spinnerRating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:entries="@array/favorit" />
+
+            <Button
+                android:id="@+id/btnRate"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginBottom="16dp"
+                android:text="Give Rate" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </android.support.v4.widget.NestedScrollView>

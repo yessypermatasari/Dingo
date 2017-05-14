@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="favorit">
+        <item>Favorit</item>
+        <item>Menarik</item>
+        <item>Biasa saja</item>
+        <item>Buruk</item>
+    </string-array>
+</resources>

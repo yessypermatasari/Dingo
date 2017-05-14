@@ -14,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo.Sugar.Rate1_Fragment;
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity
 
         changePage(R.id.nav_home);
         navigationView.setCheckedItem(R.id.nav_home);
+
     }
 
     @Override
@@ -91,16 +95,31 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         if (id == R.id.nav_home) {
             fragment = new HomeFragment();
-            setTitle("Movies");
-            // Handle the camera action
+            setTitle("Movie");
         } else if (id == R.id.nav_gallery) {
             fragment = new SecondFragment();
-            setTitle("Drama");
-            // Handle the camera action
+            setTitle("TV Show");
+        } else if (id == R.id.nav_rate) {
+            fragment = new Rate1_Fragment();
+            setTitle("Rate");
         }
+//        else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        }
+//        else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment).commitNow();
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
     }
 }

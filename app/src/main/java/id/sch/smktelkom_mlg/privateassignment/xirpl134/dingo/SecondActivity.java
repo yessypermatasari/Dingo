@@ -2,7 +2,6 @@ package id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -39,20 +38,20 @@ public class SecondActivity extends AppCompatActivity {
         mPostkey = getIntent().getExtras().getInt("blog_id");
 
         loadRecyclerViewData();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Uri uri = Uri.parse(url); // missing 'http://' will cause crashed
 //
-//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Uri uri = Uri.parse(url); // missing 'http://' will cause crashed
+////
+////                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+////
+////                startActivity(intent);
 //
-//                startActivity(intent);
-
-            }
-
-        });
+//            }
+//
+//        });
 
 
         textViewJudul = (TextView) findViewById(R.id.textViewJudul);
@@ -100,7 +99,7 @@ public class SecondActivity extends AppCompatActivity {
                             Glide
 
                                     .with(SecondActivity.this)
-                                    .load("https://image.tmdb.org/t/p/w500" + o.getString("poster_path"))
+                                    .load("https://image.tmdb.org/t/p/w500" + o.getString("backdrop_path"))
                                     .into(imageViewDetail);
 
                         } catch (JSONException e) {

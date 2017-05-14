@@ -2,11 +2,13 @@ package id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -21,12 +23,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
+import id.sch.smktelkom_mlg.privateassignment.xirpl134.dingo.Sugar.Place;
+
 public class HomeActivity extends AppCompatActivity {
     private static final String URL_DATA = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=0652326c89cd19f30e225c34439a580c";
     public TextView textViewJudul;
     public TextView textViewTerbit;
-    public TextView textViewOverView;
+    public TextView textViewOverview;
     public ImageView imageViewDetail;
+    public Button btnRate;
+    public Spinner spinnerRating;
+    //    public PlaceItem placeItem;
+    public String Backdrop;
+    //    public boolean isNew;
+    Place place;
+    boolean isPressed = true;
+    //    FloatingActionButton fab;
+    boolean isNew;
+    ArrayList<Place> pItem;
     private Integer mPostkey = null;
 
     @Override
@@ -38,27 +54,49 @@ public class HomeActivity extends AppCompatActivity {
 
         mPostkey = getIntent().getExtras().getInt("blog_id");
 
+
         loadRecyclerViewData();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Uri uri = Uri.parse(url); // missing 'http://' will cause crashed
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Uri uri = Uri.parse(url); // missing 'http://' will cause crashed
+////
+////                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+////iQ1`
+////                startActivity(intent);
 //
-//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//            }
 //
-//                startActivity(intent);
-
-            }
-
-        });
+//        });
 
 
         textViewJudul = (TextView) findViewById(R.id.textViewJudul);
         textViewTerbit = (TextView) findViewById(R.id.textViewTerbit);
-        textViewOverView = (TextView) findViewById(R.id.textViewOverView);
+        textViewOverview = (TextView) findViewById(R.id.textViewOverView);
         imageViewDetail = (ImageView) findViewById(R.id.imageViewBack);
+
+        spinnerRating = (Spinner) findViewById(R.id.spinnerRating);
+        btnRate = (Button) findViewById(R.id.btnRate);
+
+        btnRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isPressed) {
+                    doSave();
+                    Snackbar.make(view, "Anda berhasil memberi rating, lihat di favorit", Snackbar.LENGTH_LONG)
+
+                            .setAction("Action", null).show();
+                } else {
+                    Snackbar.make(view, "Artikel favorit anda", Snackbar.LENGTH_LONG)
+
+                            .setAction("Action", null).show();
+                }
+                isPressed = !isPressed;
+            }
+        });
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -69,6 +107,37 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void doSave() {
+
+        String overview = textViewOverview.getText().toString();
+        String terbit = textViewTerbit.getText().toString();
+        String judul = textViewJudul.getText().toString();
+        String backdrop = Backdrop;
+        String rate = spinnerRating.getSelectedItem().toString();
+
+        place = new Place(overview, terbit, judul, backdrop, rate);
+        place.save();
+    }
+//    private void fillData() {
+//        spinnerRating.setSelected(place.rate);
+//    }
+//    private void doRate() {
+//        String rate = spinnerRating.getSelectedItem().toString();
+//
+//        if (rate.isEmpty())
+//        {
+//        //    Snackbar.make(findViewById(R.id.spinnerRating), place.ra + " Terhapus", Snackbar.LENGTH_LONG)
+//        }
+//        else
+//        {
+//            if (isNew){
+//                place = new Place(rate);
+//                place.save();
+//            }
+//        }
+//    }
+
 
     private void loadRecyclerViewData() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -93,7 +162,7 @@ public class HomeActivity extends AppCompatActivity {
 
                             textViewJudul.setText(o.getString("title"));
                             textViewTerbit.setText(o.getString("release_date"));
-                            textViewOverView.setText(o.getString("overview"));
+                            textViewOverview.setText(o.getString("overview"));
 
 //                            url = o.getJSONObject("link").getString("url");
 

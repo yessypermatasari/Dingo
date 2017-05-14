@@ -111,7 +111,7 @@ public class SecondFragment extends Fragment {
 
                                 SecondListItem item = new SecondListItem(
 
-                                        "https://image.tmdb.org/t/p/w500" + o.getString("backdrop_path"),
+                                        "https://image.tmdb.org/t/p/w500" + o.getString("poster_path"),
 
                                         o.getString("title")
 

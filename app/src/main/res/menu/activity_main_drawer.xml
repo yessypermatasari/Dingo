@@ -5,11 +5,23 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_movie_black_24dp"
-            android:title="Now Movies Playing" />
+            android:title="Movies" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_live_tv_black_24dp"
             android:title="TV Dramas" />
+        <item android:title="">
+            <menu>
+                <item
+                    android:id="@+id/nav_rate"
+                    android:icon="@drawable/ic_favorite_black_24dp"
+                    android:title="Rating" />
+                <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Send" />-->
+            </menu>
+        </item>
         <!--<item-->
         <!--android:id="@+id/nav_slideshow"-->
         <!--android:icon="@drawable/ic_menu_slideshow"-->
